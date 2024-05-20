@@ -4,7 +4,8 @@ using Persistence;
 
 namespace WebAPI.Controllers
 {
-    public class UploadController : Controller
+	[Controller]
+	public class UploadController : Controller
     {
         private UsersDbContext db;
         public UploadController(UsersDbContext context)
@@ -12,16 +13,28 @@ namespace WebAPI.Controllers
             db = context;
         }
 
-        public IActionResult Upload(User user)
+		[HttpGet]
+		public IActionResult Upload()
         {
-            db.Users.Add(user);
-            db.SaveChangesAsync();
             return View();
         }
 
-        public IActionResult Index1()
-        {
-            return View();
-        }
-    }
+		[HttpPost]
+		public async Task<IActionResult> Upload(NFT NFT)
+		{
+			try
+			{
+				db.NFTs.Add(NFT);//Добавить привязку к пользователю
+				await db.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+				// Log the exception
+				Console.WriteLine(ex.ToString());
+				throw;
+			}
+
+			return View();
+		}
+	}
 }
