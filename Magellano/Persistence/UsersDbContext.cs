@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Application.Interfaces;
 using Domain;
 using Persistence.EntityTypeConfiguration;
 using System.Reflection.Emit;
+using Application.Interfaces;
+using Domain.Common;
 
 
 namespace Persistence
@@ -16,6 +17,32 @@ namespace Persistence
         {
             Database.EnsureDeleted();
             Database.EnsureCreated();        
+        }
+
+        public override int SaveChanges()
+        {
+            UpdateTimestamps();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            UpdateTimestamps();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void UpdateTimestamps()
+        {
+            var entries = ChangeTracker.Entries().Where(e => e.Entity is BaseEntity && (e.State == EntityState.Added || e.State == EntityState.Modified));
+
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    ((BaseEntity)entry.Entity).CreatedAt = DateTime.UtcNow;
+                }
+                ((BaseEntity)entry.Entity).UpdatedAt = DateTime.UtcNow;
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

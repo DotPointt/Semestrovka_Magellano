@@ -119,11 +119,14 @@
             <div class="container">
                 <div class="add_bottom_20 clearfix">
                     <div class="custom_select">
-                        <select name="sort" id="sort">
-                            <option value="popularity" selected="selected">Sort by Popularity</option>
-                            <option value="rating">Sort by Newness</option>
-                            <option value="date">Sort by Trending</option>
-                        </select>
+                        <form action="/Explore/Index" method="post">
+                            <select name='SortParametr' id="sort">
+                                <option  value="Price" selected="selected">Sort by Price</option>
+                                <option  value="Name">Sort by Name</option>
+                                <option value="CreatedAt">Sort by Newness</option>
+                            </select>
+                            <button type="submit">Submit</button>
+                        </form>
                     </div>
                     <a href="~/#collapseFilters" data-bs-toggle="collapse" class="btn_filters"><i class="bi bi-filter"></i><span>Filters</span></a>
                     <div class="search_bar_list">
@@ -276,379 +279,45 @@
                         <li>Page active</li>
                     </ul>
                 </div>
-                <h1>All:</h1><span> 814 found</span>
+                <h1>All:</h1><span> <span style="font-weight: bold; font-size: 30px;">@Model.NFTs.Count</span> found</span>
             </div>
             <!-- /page_header -->
             <div class="row">
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-1.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Amazing Art</h3>
-                                    <small>3.25 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb veryfied">
-                                        <i class="bi bi-check"></i>
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar2.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
+                <!-- /strip -->
+                @foreach (var item in Model.NFTs)
+                {
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                        <div class="strip">
+                           
+                            <figure>
+@*                                 <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a> *@
+                                <img src="@item.Url" data-src="@item.Url" class="lazy" alt="" width="400" height="400">
+                                <a href="~/detail-page.html" class="strip_info">
+                                    <div class="item_title">
+                                        <h3>@item.Name</h3>
+                                        <small>@item.Price</small>
                                     </div>
-                                    <h6> George_luke</h6>
                                 </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
+                            </figure>
+                            <ul>
+                                <li>
+                                    <a href="~/author.html" class="author">
+                                        <div class="author_thumb veryfied">
+                                            <i class="bi bi-check"></i>
+                                            <figure>
+                                                <img src="@item.User.PhotoUrl" data-src="@item.User.PhotoUrl" alt="" class="lazy" width="100" height="100">
+                                            </figure>
+                                        </div>
+                                        <h6> @item.User.Name</h6>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <div data-countdown="2022/03/15" class="countdown"></div>
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-2.gif" class="lazy" alt="" width="400" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Facing Art</h3>
-                                    <small>1.25 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb veryfied">
-                                        <i class="bi bi-check"></i>
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar4.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Frederick</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-3.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Blue sea pain</h3>
-                                    <small>0.25 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb veryfied">
-                                        <i class="bi bi-check"></i>
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar3.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Monica_Claus</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <div data-countdown="2022/03/15" class="countdown"></div>
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-4.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Abstraction</h3>
-                                    <small>2.45 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb">
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar1.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Mario_1988</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-5.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/author.html" class="author">
-                            </a>
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>The Rain Forest</h3>
-                                    <small>1.25 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb veryfied">
-                                        <i class="bi bi-check"></i>
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar4.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Tomas_Clue</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-6.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>The King</h3>
-                                    <small>0.34 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb">
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar1.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Pixel_inc</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-7.gif" class="lazy" alt="" width="598" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Driving to center</h3>
-                                    <small>4.60 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb veryfied">
-                                        <i class="bi bi-check"></i>
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar3.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Marc_Osl</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-8.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Lost Women</h3>
-                                    <small>2.45 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb">
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar2.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Jhonny_Bet</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-9.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Hidden Fall</h3>
-                                    <small>1.65 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb veryfied">
-                                        <i class="bi bi-check"></i>
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar4.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Gregory</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-10.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Clock Ocean</h3>
-                                    <small>0.95 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb">
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar4.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Robert98</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-11.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Hello World!</h3>
-                                    <small>1.25 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb">
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar3.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Salazar</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /strip grid -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="strip">
-                        <figure>
-                            <a href="~/#modal-dialog" class="btn_1 modal_popup">Place a bid</a>
-                            <img src="~/img/items/item-1-placeholder.png" data-src="~/img/items/item-12.jpg" class="lazy" alt="" width="533" height="400">
-                            <a href="~/detail-page.html" class="strip_info">
-                                <div class="item_title">
-                                    <h3>Brain Storm</h3>
-                                    <small>2.95 ETH</small>
-                                </div>
-                            </a>
-                        </figure>
-                        <ul>
-                            <li>
-                                <a href="~/author.html" class="author">
-                                    <div class="author_thumb">
-                                        <figure>
-                                            <img src="~/img/avatar-placeholder.png" data-src="~/img/avatar1.jpg" alt="" class="lazy" width="100" height="100">
-                                        </figure>
-                                    </div>
-                                    <h6> Bennet_corp</h6>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/#0" class="wish_bt"><i class="bi bi-heart-fill"></i></a> 50
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                }
                 <!-- /strip grid -->
             </div>
             <!-- /row -->
@@ -666,94 +335,6 @@
     </main>
     <!-- /main -->
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <h3>Marketplace</h3>
-                    <div class="links">
-                        <ul>
-                            <li><a href="~/index.html">Home</a></li>
-                            <li><a href="~/grid-listing-1.html">Explore</a></li>
-                            <li><a href="~/login.html">Login</a></li>
-                            <li><a href="~/register.html">Register</a></li>
-                            <li><a href="~/contacts.html">Contacts</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <h3>Useful Links</h3>
-                    <div class="links">
-                        <ul>
-                            <li><a href="~/help.html">Help Center</a></li>
-                            <li><a href="~/connect-wallet.html">Connect Wallet</a></li>
-                            <li><a href="~/help.html">Faq</a></li>
-                            <li><a href="~/pricing-tables-2.html">Pricing</a></li>
-                            <li><a href="~/contacts.html">Become an Author</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <h3>Resources</h3>
-                    <div class="links">
-                        <ul>
-                            <li><a href="~/#0">Blog</a></li>
-                            <li><a href="~/#0">Community</a></li>
-                            <li><a href="~/#0">Best Price</a></li>
-                            <li><a href="~/#0">Latest Submissions</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <h3>Keep in touch</h3>
-                    <div id="newsletter">
-                        <div id="message-newsletter"></div>
-                        <form method="post" name="newsletter_form" id="newsletter_form">
-                            <div class="form-group">
-                                <input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Your email">
-                                <button type="submit" id="submit-newsletter"><i class="bi bi-chevron-right"></i></button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="follow_us">
-                        <ul>
-                            <li><a href="~/#0"><img src="~/data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="~/img/twitter_icon.svg" alt="" class="lazy"></a></li>
-                            <li><a href="~/#0"><img src="~/data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="~/img/facebook_icon.svg" alt="" class="lazy"></a></li>
-                            <li><a href="~/#0"><img src="~/data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="~/img/instagram_icon.svg" alt="" class="lazy"></a></li>
-                            <li><a href="~/#0"><img src="~/data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="~/img/youtube_icon.svg" alt="" class="lazy"></a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-            <!-- /row-->
-            <hr>
-            <div class="row add_bottom_25">
-                <div class="col-md-6">
-                    <ul class="footer-selector clearfix">
-                        <li>
-                            <div class="styled-select lang-selector">
-                                <select>
-                                    <option value="English" selected>English</option>
-                                    <option value="French">French</option>
-                                    <option value="Spanish">Spanish</option>
-                                    <option value="Russian">Russian</option>
-                                </select>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <ul class="additional_links">
-                        <li><a href="~/#0">Terms and conditions</a></li>
-                        <li>© 2022 Magellano</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!--/footer-->
 
     <div id="toTop"></div><!-- Back to top button -->
     <!-- Modal Bid -->
