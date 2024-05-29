@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Interfaces;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Persistence;
 
@@ -7,8 +8,8 @@ namespace WebAPI.Controllers
 	[Controller]
 	public class UploadController : Controller
     {
-        private UsersDbContext db;
-        public UploadController(UsersDbContext context)
+        private IUsersDbContext db;
+        public UploadController(IUsersDbContext context)
         {
             db = context;
         }
@@ -20,12 +21,12 @@ namespace WebAPI.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> Upload(NFT NFT)
+		public IActionResult Upload(NFT NFT)
 		{
 			try
 			{
 				db.NFTs.Add(NFT);//Добавить привязку к пользователю
-				await db.SaveChangesAsync();
+				db.SaveChanges();
 			}
 			catch (Exception ex)
 			{

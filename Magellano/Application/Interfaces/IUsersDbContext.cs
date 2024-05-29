@@ -11,7 +11,10 @@ namespace Application.Interfaces
 {
     public interface IUsersDbContext
     {
-        DbSet<User> Users { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        public int SaveChanges();
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<NFT> NFTs { get; set; }
     }
 }

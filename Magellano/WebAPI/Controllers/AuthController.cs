@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Services;
+using Microsoft.AspNetCore.Mvc;
+using WebAPI.Models;
 
 
 namespace WebAPI.Controllers
@@ -12,11 +14,24 @@ namespace WebAPI.Controllers
 			_logger = logger;
 		}
 
-		public IActionResult Login()
+		public static  IResult Register( RegisterUserRequest request,UsersService usersService)
 		{
-			return View();
+			usersService.Register(request.Name, request.Email, request.Password);
+
+			return Results.Ok();
 		}
 
+        public static IResult Login(LoginUserRequest request, UsersService usersService)
+        {
+			var token = usersService.Login(request.Name, request.Email, request.Password);
 
-	}
+            return Results.Ok(token);
+        }
+
+        public IActionResult Privacy()	
+        {
+            return View();
+        }
+
+    }
 }
