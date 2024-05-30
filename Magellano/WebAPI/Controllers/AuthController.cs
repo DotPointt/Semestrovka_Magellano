@@ -7,31 +7,57 @@ namespace WebAPI.Controllers
 {
 	public class AuthController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
 
-		public AuthController(ILogger<HomeController> logger)
+		private readonly UsersService _usersService;
+
+
+        public AuthController(UsersService usersService)
 		{
-			_logger = logger;
-		}
+            _usersService = usersService;
 
-		public static  IResult Register( RegisterUserRequest request,UsersService usersService)
-		{
-			usersService.Register(request.Name, request.Email, request.Password);
-
-			return Results.Ok();
-		}
-
-        public static IResult Login(LoginUserRequest request, UsersService usersService)
-        {
-			var token = usersService.Login(request.Name, request.Email, request.Password);
-
-            return Results.Ok(token);
         }
 
-        public IActionResult Privacy()	
+		[HttpPost]
+		public IActionResult Register( RegisterUserRequest request)
+		{
+			var token = _usersService.Register(request.Name, request.Email, request.Password);
+			Response.Cookies.Append("JwtCookie", token);
+
+			return Redirect("/Home/Index");
+		}
+
+		[HttpGet]
+		public IActionResult Register()
+		{
+
+			return View();
+		}
+
+		[HttpPost]
+        public  IActionResult Login(LoginUserRequest request)
         {
+			var token = _usersService.Login(request.Name, request.Email, request.Password);
+
+            if (token == String.Empty)
+            {
+                return View();
+            }
+            else
+            {
+                Response.Cookies.Append("JwtCookie", token);
+            }
+
+			return Redirect("/Home/Index");
+		}
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+
+
             return View();
         }
+
 
     }
 }

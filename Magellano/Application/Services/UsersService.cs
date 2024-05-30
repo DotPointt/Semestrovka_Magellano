@@ -14,7 +14,7 @@ namespace Application.Services
             _usersDbContext = usersDbContext;
             _jwtProvider = jwtProvider;
         }
-        public void Register (string userName, string email, string password)
+        public string Register (string userName, string email, string password)
         {
             var hashedPassword = password; //Добавить кэширование
 
@@ -22,21 +22,37 @@ namespace Application.Services
 
             _usersDbContext.Users.Add(user);
             _usersDbContext.SaveChanges(); //сделать метод ассинхронным
-        }
+
+			var token = _jwtProvider.GenerateToken(user);
+			return token;
+		}
 
 
         public string Login(string userName, string email, string password)
         {
-            var user = _usersDbContext.Users.First(u => u.Email == email) ?? throw new Exception();
+            User user = new User();
+            string token = string.Empty;
+            var result = false;
 
-            var result = password == user.Password;
+            if (email != null)
+            {
+                var users = _usersDbContext.Users;
+                user = users.FirstOrDefault(u => u.Email == email); //убрать екеспетино в случае логина перекидывать на глав
+            }
+
+
+            if (user is not null && password != null && password == user.Password)
+            {
+                result = true;
+                token = _jwtProvider.GenerateToken(user);
+            }
 
             if (result == false)
             {
-                throw new Exception("Failed to login");
+                Console.WriteLine("Failed to login");//logger
+                //throw new Exception("Failed to login");
             }
 
-            var token = _jwtProvider.GenerateToken(user);
 
             return token;
         }

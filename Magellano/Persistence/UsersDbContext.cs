@@ -48,7 +48,7 @@ namespace Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 			modelBuilder.ApplyConfiguration(new UserConfiguration());
-			User Kamil = new User { Id = Guid.NewGuid(), Name = "kamil", Email = RandomStringGenerator.GenerateRandomEmail(8), PhotoUrl = "https://sun9-22.userapi.com/impg/GE3rXihxDn3I2fzIjo9ZEUWjkbpBO5v21us8OQ/JRLStxrCBUE.jpg?size=2012x2160&quality=95&sign=03eb995a306ea3aa723bb8589f96c06f&type=album" };
+			User Kamil = new User { Id = Guid.NewGuid(), Name = "kamil", Email = "kamil@mail.ru", Password="123",  PhotoUrl = "https://img.freepik.com/free-vector/circle-hearts-set_78370-2859.jpg?size=626&ext=jpg" };
 			Random random = new Random();
 
 			modelBuilder.Entity<User>().HasData(
@@ -75,6 +75,8 @@ namespace Persistence
 				new NFT { Id = Guid.NewGuid(), Url = "https://img.freepik.com/free-vector/circle-hearts-set_78370-2859.jpg?size=626&ext=jpg", UserId = Kamil.Id, Price = random.Next(1, 10000), Name = RandomStringGenerator.GenerateRandomName(5) },
 				new NFT { Id = Guid.NewGuid(), Url = "https://img.freepik.com/free-vector/circle-hearts-set_78370-2859.jpg?size=626&ext=jpg", UserId = Kamil.Id, Price = random.Next(1, 10000), Name = RandomStringGenerator.GenerateRandomName(5) }
 				);
+
+
 		}
 
 

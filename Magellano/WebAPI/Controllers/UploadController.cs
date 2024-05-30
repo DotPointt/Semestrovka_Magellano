@@ -1,7 +1,10 @@
 ﻿using Application.Interfaces;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
+using System.IdentityModel.Tokens.Jwt;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
@@ -15,9 +18,25 @@ namespace WebAPI.Controllers
         }
 
 		[HttpGet]
-		public IActionResult Upload()
+		public async Task<IActionResult> Upload()
         {
-            return View();
+            var jwtToken = HttpContext.Request.Cookies["JwtCookie"];
+            if (string.IsNullOrEmpty(jwtToken))
+            {
+                return Unauthorized();
+            }
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadJwtToken(jwtToken);
+
+            var Name = token.Claims.FirstOrDefault(c => c.Type == "userName")?.Value;
+
+            //var PhotoUrl = token.Claims.FirstOrDefault(c => c.Type == "PhotoUrl")?.Value;
+			var PhotoUrl =  await db.Users
+            .Where(u => u.Name == Name)
+            .Select(u => u.PhotoUrl)
+            .FirstOrDefaultAsync();
+
+            return View(new UploadViewModel(Name, PhotoUrl));
         }
 
 		[HttpPost]

@@ -9,6 +9,7 @@ using Application.Interfaces.Auth;
 using Domain;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using static System.Net.WebRequestMethods;
 
 
 namespace Persistence
@@ -26,7 +27,8 @@ namespace Persistence
             Claim[] claims = new Claim[]
             {
                 new Claim("userId", user.Id.ToString()),
-                new Claim("userName", user.Name)
+            new Claim("userName", user.Name),
+                //new Claim("PhotoUrl", user.PhotoUrl ?? "https://avatars.mds.yandex.net/i?id=2e42503fe87768dd7ef28f749daffa7dff684a85-12866313-images-thumbs&n=13")
             };
 
 

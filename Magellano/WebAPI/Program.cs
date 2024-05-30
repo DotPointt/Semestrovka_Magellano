@@ -17,10 +17,9 @@ builder.Services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOption
 
 builder.Services.AddDbContext<UsersDbContext>(options => options.UseNpgsql(connection));
 builder.Services.AddScoped<IUsersDbContext, UsersDbContext>();
+builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 builder.Services.AddScoped<UsersService>();
 
